@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Pre-commit hook — secret scanning via gitleaks
+# Blocks commits if secrets, API keys, or tokens are detected
+
+set -e
+
+echo "Running gitleaks secret scan..."
+
+gitleaks protect --staged --config=.gitleaks.toml --verbose
+
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "COMMIT BLOCKED: gitleaks detected potential secrets."
+  echo "Review the output above, remove the secrets, and try again."
+  echo "If this is a false positive, update .gitleaks.toml to allowlist it."
+  exit 1
+fi
+
+echo "gitleaks scan passed. Proceeding with commit."

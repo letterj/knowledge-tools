@@ -1,0 +1,13 @@
+title = "knowledge-tools gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlist"
+paths = [
+  ".gitleaks.toml",
+  "CHANGELOG.md",
+  "README.md",
+  "RUNBOOK.md"
+]
